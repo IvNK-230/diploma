@@ -14,14 +14,6 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 public class TestUI {
-    @BeforeAll
-    static void setUpAll() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
-    }
-    @AfterAll
-    static void tearDownAll() {
-        SelenideLogger.removeListener("allure");
-    }
 
     @BeforeEach
     void setup() {
@@ -29,7 +21,7 @@ public class TestUI {
     }
 
     @Test   //Сценарий №1. Отправка формы "Оплата по карте" валидными данными
-    public void successfulTestWithPaymentGate() {
+    public void validTestWithPaymentGate() {
         PageObject page = new PageObject();
         page.pressTheBuyButton();
         page.fillTheFiledOfCardNumber(DataHelper.validCardNumber());
@@ -42,7 +34,7 @@ public class TestUI {
     }
 
     @Test   //Сценарий №2. Отправка формы "Кредит по данным карты" валидными данными
-    public void successfulTestWithCreditGate() {
+    public void validTestWithCreditGate() {
         PageObject page = new PageObject();
         page.pressTheCreditButton();
         page.fillTheFiledOfCardNumber(DataHelper.validCardNumber());
@@ -182,7 +174,7 @@ public class TestUI {
     }
 
     @Test   //Сценарий №13 Отправка формы "Оплата по карте" с пустым значением поля "Номер карты"
-    public void fillWithEmptyFieldOfCardNumber() {
+    public void testWithEmptyFieldOfCardNumber() {
         PageObject page = new PageObject();
         page.pressTheBuyButton();
         page.fillTheFieldOfMonth(DataHelper.getMonth());

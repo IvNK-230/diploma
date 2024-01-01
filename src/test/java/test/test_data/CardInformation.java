@@ -2,8 +2,6 @@ package test.test_data;
 
 public class CardInformation {
 
-    // Класс с данными для заполнения анкеты и методом заполнения анкеты
-
     private String number;
     private String year;
     private String month;

@@ -65,21 +65,6 @@ public class PageObject {
         $(By.xpath("//span[text()='Поле обязательно для заполнения']")).shouldBe(Condition.visible);
     }
 
-    public void openFormAfterClickOnButtonBuy() {
-
-        buyButton.click();
-        final SelenideElement name = $(By.xpath("//h3[text()='Оплата по карте']"));
-        name.shouldBe(Condition.visible);
-
-    }
-
-    public void openFormAfterClickOnButtonCredit() {
-        creditButton.click();
-        final SelenideElement name = $(By.xpath("//h3[text()='Кредит по данным карты']"));
-        name.shouldBe(Condition.visible);
-    }
-
-
     public void pressTheBuyButton() {
         buyButton.click();
     }

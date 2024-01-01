@@ -23,14 +23,13 @@ public class DataHelper {
     }
 
     public static String invalidCardNumber() {
-        String invalidNumber = "4444 4444 4444 4442";
+        String invalidNumber = "4444 4444 4444 4111";
         return invalidNumber;
     }
 
-    // генерация валидного номера месяца
     public static String getMonth() {
         var months = new String[]{
-                "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"
+                "10", "11", "12", "01", "02", "03", "04", "05", "06", "07", "08", "09"
         };
         return months[new Random().nextInt(months.length)];
     }
@@ -71,15 +70,17 @@ public class DataHelper {
         return name;
     }
 
-    public static String getCVV() {
-        double CVV = Math.random() * 1000;
-        return String.valueOf(CVV);
-    }
-
     public static String getInvalidFormatCVV() {
         Random random = new Random();
         var CVV = random.nextInt(5);
         return String.valueOf(CVV);
     }
+
+    public static String getCVV() {
+        Faker faker = new Faker();
+        String cvv = faker.number().digits(3);
+        return cvv;
+    }
+
 
 }
