@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'io.qameta.allure' version '2.11.2'
 }
 
 group 'ru.netology'
@@ -11,6 +12,12 @@ sourceCompatibility = 11
 compileJava.options.encoding = "UTF-8"
 compileTestJava.options.encoding = "UTF-8"
 
+allure {
+    version = '2.20.1'
+    useJUnit5 {
+        version = '2.20.1'
+    }
+}
 repositories {
     mavenCentral()
 }
@@ -27,6 +34,8 @@ dependencies {
     testImplementation 'org.projectlombok:lombok:1.18.26'
     testCompileOnly ('org.projectlombok:lombok:1.18.26')
     testAnnotationProcessor ('org.projectlombok:lombok:1.18.26')
+
+    testImplementation 'io.qameta.allure:allure-selenide:2.20.1'
 
     testImplementation 'io.rest-assured:rest-assured:4.3.0'
     testImplementation 'io.rest-assured:json-schema-validator:4.3.0'
