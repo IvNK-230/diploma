@@ -15,7 +15,8 @@ public class TestApi {
 
     }
 
-    @Test   // Отправка формы "Оплата по карте" валидными данными
+    @Test
+        // Сценарий №18. Отправка формы "Оплата по карте" валидными данными
     void testWithPaymentGate() {
         Specification.installSpecification(Specification.requestSpec(RegresTest.URL), Specification.response200());
         CardInformation reg = new CardInformation(DataHelper.validCardNumber(), DataHelper.getYear(), DataHelper.getMonth(), DataHelper.getName(), DataHelper.getCVV());
@@ -28,7 +29,8 @@ public class TestApi {
                 .statusCode(200);
     }
 
-    @Test   // Отправка формы "Кредит по данным карты" валидными данными
+    @Test
+        // Сценарий №19. Отправка формы "Кредит по данным карты" валидными данными
     void testWithCreditGate() {
         Specification.installSpecification(Specification.requestSpec(RegresTest.URL), Specification.response200());
         CardInformation reg = new CardInformation(DataHelper.validCardNumber(), DataHelper.getYear(), DataHelper.getMonth(), DataHelper.getName(), DataHelper.getCVV());
@@ -40,8 +42,10 @@ public class TestApi {
                 .then()
                 .statusCode(200);
     }
-    @Test   // Отправка формы "Оплата по карте" с картой со статусом DECLINED
-    void testWithPaymentGateAndCardDeclined() {
+
+    @Test
+        // Сценарий №20. Отправка формы "Оплата по карте" с картой со статусом DECLINED
+    void testWithCardDeclined() {
         Specification.installSpecification(Specification.requestSpec(RegresTest.URL), Specification.response400());
         CardInformation reg = new CardInformation("4444 4444 4444 4442", DataHelper.getYear(), DataHelper.getMonth(), DataHelper.getName(), DataHelper.getCVV());
         given()
@@ -52,7 +56,9 @@ public class TestApi {
                 .then()
                 .statusCode(400);
     }
-    @Test   // Отправка формы "Оплата по карте" с картой и пустыми значениями остальных полей
+
+    @Test
+        // Сценарий №21. Отправка формы "Оплата по карте" с валидной картой и пустыми значениями остальных полей
     void testWithPaymentGateValidCardNumberAndEmpty() {
         Specification.installSpecification(Specification.requestSpec(RegresTest.URL), Specification.response400());
         CardInformation reg = new CardInformation(DataHelper.validCardNumber(), "", "", "", "");
@@ -64,7 +70,9 @@ public class TestApi {
                 .then()
                 .statusCode(400);
     }
-    @Test   // Отправка формы "Оплата по карте" с картой и пустыми значениями остальных полей
+
+    @Test
+        //Сценарий №22. Отправка формы с пустыми значениями всех полей.
     void testWithPaymentGateEmpty() {
         Specification.installSpecification(Specification.requestSpec(RegresTest.URL), Specification.response500());
         CardInformation reg = new CardInformation("", "", "", "", "");

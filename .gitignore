@@ -32,6 +32,7 @@ out/
 
 ### Package Files ###
 *.jar
+*.png
 *.war
 *.nar
 *.ear

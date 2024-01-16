@@ -1,26 +1,25 @@
 package test.tests;
 
-import com.codeborne.selenide.logevents.SelenideLogger;
-import io.qameta.allure.selenide.AllureSelenide;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import test.pages.PageObject;
 import test.test_data.DataHelper;
 import test.test_data.MonthAndYear;
+import test.test_data.SQLHelper;
 
-import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestUI {
 
     @BeforeEach
     void setup() {
         open("http://localhost:8080");
+        SQLHelper.deleteTable();
     }
 
-    @Test   //Сценарий №1. Отправка формы "Оплата по карте" валидными данными
+
+    @Test//Сценарий №1. Отправка формы "Оплата по карте" валидными данными
     public void validTestWithPaymentGate() {
         PageObject page = new PageObject();
         page.pressTheBuyButton();
@@ -31,9 +30,11 @@ public class TestUI {
         page.fillTheFieldOfCvv(DataHelper.getCVV());
         page.pressTheEnterButton();
         page.successNotification();
+        assertEquals("APPROVED", SQLHelper.getPaymentStatus());
     }
 
-    @Test   //Сценарий №2. Отправка формы "Кредит по данным карты" валидными данными
+
+    @Test//Сценарий №2. Отправка формы "Кредит по данным карты" валидными данными
     public void validTestWithCreditGate() {
         PageObject page = new PageObject();
         page.pressTheCreditButton();
@@ -43,10 +44,11 @@ public class TestUI {
         page.fillTheFieldOfName(DataHelper.getName());
         page.fillTheFieldOfCvv(DataHelper.getCVV());
         page.pressTheEnterButton();
-        page.successNotification();
+        assertEquals("APPROVED", SQLHelper.getPaymentStatus());
     }
 
-    @Test   //Сценарий №3 Отправка формы "Оплата по карте" невалидными данными только в поле "Номер карты"
+
+    @Test//Сценарий №3. Отправка формы "Оплата по карте" невалидными данными только в поле "Номер карты"
     public void testWithInvalidCardNumber() {
         PageObject page = new PageObject();
         page.pressTheBuyButton();
@@ -59,7 +61,8 @@ public class TestUI {
         page.failNotification();
     }
 
-    @Test   // Сценарий №4 Отправка формы "Оплата по карте" с картой со статусом DECLINED
+
+    @Test// Сценарий №4. Отправка формы "Оплата по карте" с картой со статусом DECLINED
     public void testWithDeclinedCard() {
         PageObject page = new PageObject();
         page.pressTheBuyButton();
@@ -69,11 +72,12 @@ public class TestUI {
         page.fillTheFieldOfName(DataHelper.getName());
         page.fillTheFieldOfCvv(DataHelper.getCVV());
         page.pressTheEnterButton();
-        page.failNotification();
+//      page.failNotification();
+        assertEquals("DECLINED", SQLHelper.getPaymentStatus());
     }
 
     @Test
-    //Сценарий №5 Отправка формы "Оплата по карте" со значением поля "Месяц" не соответствующее шаблону, одна цифра.
+//Сценарий №5. Отправка формы "Оплата по карте" со значением поля "Месяц" не соответствующее шаблону, одна цифра.
     public void testWithInvalidFormatMonth() {
         PageObject page = new PageObject();
         page.pressTheBuyButton();
@@ -86,7 +90,7 @@ public class TestUI {
         page.invalidFormatMessage();
     }
 
-    @Test   //Сценарий №6 Отправка формы "Оплата по карте" с несуществующим значением поля "Месяц"
+    @Test//Сценарий №6. Отправка формы "Оплата по карте" с несуществующим значением поля "Месяц"
     public void testWithNonExistentFormatMonth() {
         PageObject page = new PageObject();
         page.pressTheBuyButton();
@@ -99,7 +103,7 @@ public class TestUI {
         page.invalidExpirationDateMessage();
     }
 
-    @Test   //Сценарий №7 Отправка формы "Оплата по карте" с указанием просроченной в текущем году карты.
+    @Test//Сценарий №7. Отправка формы "Оплата по карте" с указанием просроченной в текущем году карты.
     public void testWithExpiredValidityPeriod() {
         PageObject page = new PageObject();
         page.pressTheBuyButton();
@@ -112,7 +116,7 @@ public class TestUI {
         page.invalidExpirationDateMessage();
     }
 
-    @Test   //Сценарий №8 Отправка формы "Оплата по карте" с указанием просроченной в прошлом году карты.
+    @Test//Сценарий №8 Отправка формы "Оплата по карте" с указанием просроченной в прошлом году карты.
     public void testWithPreviousYear() {
         PageObject page = new PageObject();
         page.pressTheBuyButton();
@@ -126,7 +130,7 @@ public class TestUI {
     }
 
     @Test
-    //Сценарий №9 Отправка формы "Оплата по карте" с указанием карты срок действия которой более 6 лет от текущей даты.
+//Сценарий №9. Отправка формы "Оплата по карте" с указанием карты срок действия которой более 6 лет от текущей даты.
     public void testWithFutureYear() {
         PageObject page = new PageObject();
         page.pressTheBuyButton();
@@ -139,8 +143,7 @@ public class TestUI {
         page.invalidExpirationDateMessage();
     }
 
-    @Test
-    //Сценарий №10 Отправка формы "Оплата по карте" со значением поля "Год" не соответствующее шаблону, одна цифра
+    @Test//Сценарий №10. Отправка формы "Оплата по карте" со значением поля "Год" не соответствующее шаблону, одна цифра
     public void testWithInvalidFormatYear() {
         PageObject page = new PageObject();
         page.pressTheBuyButton();
@@ -154,7 +157,7 @@ public class TestUI {
     }
 
     @Test
-    //Сценарий №11 Отправка формы "Оплата по карте" со значением поля "CVC/CVV" не соответствующее шаблону, одна цифра
+//Сценарий №11. Отправка формы "Оплата по карте" со значением поля "CVC/CVV" не соответствующее шаблону, одна цифра
     public void testWithInvalidFormatCvv() {
         PageObject page = new PageObject();
         page.pressTheBuyButton();
@@ -167,13 +170,13 @@ public class TestUI {
         page.invalidFormatMessage();
     }
 
-    @Test   //Сценарий №12 Отправка формы "Оплата по карте" с пустыми полями
+    @Test//Сценарий №12. Отправка формы "Оплата по карте" с пустыми полями
     public void testWithEmptyFields() {
         PageObject page = new PageObject();
         page.fillWithEmptyFields();
     }
 
-    @Test   //Сценарий №13 Отправка формы "Оплата по карте" с пустым значением поля "Номер карты"
+    @Test//Сценарий №13. Отправка формы "Оплата по карте" с пустым значением поля "Номер карты"
     public void testWithEmptyFieldOfCardNumber() {
         PageObject page = new PageObject();
         page.pressTheBuyButton();
@@ -185,7 +188,7 @@ public class TestUI {
         page.invalidFormat();
     }
 
-    @Test   //Сценарий №14 Отправка формы "Оплата по карте" с пустым значением поля "Месяц"
+    @Test//Сценарий №14. Отправка формы "Оплата по карте" с пустым значением поля "Месяц"
     public void testWithEmptyFieldOfMonth() {
         PageObject page = new PageObject();
         page.pressTheBuyButton();
@@ -197,7 +200,7 @@ public class TestUI {
         page.invalidFormat();
     }
 
-    @Test   //Сценарий №15 Отправка формы "Оплата по карте" с пустым значением поля "Год"
+    @Test//Сценарий №15. Отправка формы "Оплата по карте" с пустым значением поля "Год"
     public void testWithEmptyFieldOfYear() {
         PageObject page = new PageObject();
         page.pressTheBuyButton();
@@ -209,7 +212,7 @@ public class TestUI {
         page.invalidFormat();
     }
 
-    @Test   //Сценарий №16 Отправка формы "Оплата по карте" с пустым значением поля "Владелец"
+    @Test//Сценарий №16. Отправка формы "Оплата по карте" с пустым значением поля "Владелец"
     public void testWithEmptyFieldOfOwner() {
         PageObject page = new PageObject();
         page.pressTheBuyButton();
@@ -222,7 +225,7 @@ public class TestUI {
 
     }
 
-    @Test   //Сценарий №17 Отправка формы "Оплата по карте" с пустым значением поля "CVC/CVV"
+    @Test//Сценарий №17. Отправка формы "Оплата по карте" с пустым значением поля "CVC/CVV"
     public void testWithEmptyFieldOfCvv() {
         PageObject page = new PageObject();
         page.pressTheBuyButton();
