@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import test.pages.PageObject;
 import test.test_data.DataHelper;
 import test.test_data.MonthAndYear;
-import test.test_data.SQLHelper;
+import test.utilities.SQLHelper;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -44,7 +44,7 @@ public class TestUI {
         page.fillTheFieldOfName(DataHelper.getName());
         page.fillTheFieldOfCvv(DataHelper.getCVV());
         page.pressTheEnterButton();
-        assertEquals("APPROVED", SQLHelper.getPaymentStatus());
+        page.successNotification();
     }
 
 

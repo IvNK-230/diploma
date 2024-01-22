@@ -42,3 +42,7 @@ API:
 - исправить дефекты приложения;
 - добавить в код тестовые метки (test-id) для ускорения процесса написания тестов;
 - написать документацию к приложению.
+
+### Отчет ALLURE
+![img.png](build%2Fallure%2Fcommandline%2Fimg.png)
+![img_1.png](build%2Fallure%2Fcommandline%2Fimg_1.png)

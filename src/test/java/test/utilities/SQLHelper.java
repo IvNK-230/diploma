@@ -1,4 +1,4 @@
-package test.test_data;
+package test.utilities;
 
 import lombok.SneakyThrows;
 import lombok.val;
