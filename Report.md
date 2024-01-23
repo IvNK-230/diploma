@@ -44,5 +44,5 @@ API:
 - написать документацию к приложению.
 
 ### Отчет ALLURE
-![img.png](build%2Fallure%2Fcommandline%2Fimg.png)
-![img_1.png](build%2Fallure%2Fcommandline%2Fimg_1.png)
+![img.png](gradle%2Fimg.png)
+![img_1.png](gradle%2Fimg_1.png)
