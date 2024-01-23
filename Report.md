@@ -44,5 +44,5 @@ API:
 - написать документацию к приложению.
 
 ### Отчет ALLURE
-![img.png](gradle%2Fimg.png)
-![img_1.png](gradle%2Fimg_1.png)
+![img](https://github.com/IvNK-230/diploma/assets/135048409/2df54f9c-d26f-4145-bccc-7472ecc7fc4d)
+![img_1](https://github.com/IvNK-230/diploma/assets/135048409/39aa749e-3f1b-4759-846b-01f556bd59cb)
